@@ -1,0 +1,10 @@
+github.com/cilium/ebpf v0.14.0 h1:0PsxAjO6EjI1rcT+rkp6WcCnE0ZvfkXBYiMedJtrSUs=
+github.com/cilium/ebpf v0.14.0/go.mod h1:DHp1WyrLeiBh19Cf/tfiSMhqheEiK8fXFZ4No0P1Hso=
+github.com/lixiangzhong/xdp v0.0.0-20221214064117-6d10d5da7609 h1:LO21zD1pE/ZzXT2w5lUh9ZwgzXEWNpfJSmvsJgw1xOg=
+github.com/lixiangzhong/xdp v0.0.0-20221214064117-6d10d5da7609/go.mod h1:cQMGsy9Djd/n/+muEBcLPpvtuW6/ZBgi2mVAJe1OIGg=
+github.com/pkg/errors v0.9.1 h1:FEBLx1zS214owpjy7qsBeixbURkuhQAwrK5UwLGTwt4=
+github.com/pkg/errors v0.9.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
+golang.org/x/exp v0.0.0-20230224173230-c95f2b4c22f2 h1:Jvc7gsqn21cJHCmAWx0LiimpP18LZmUxkT5Mp7EZ1mI=
+golang.org/x/exp v0.0.0-20230224173230-c95f2b4c22f2/go.mod h1:CxIveKay+FTh1D0yPZemJVgC/95VzuuOLq5Qi4xnoYc=
+golang.org/x/sys v0.15.0 h1:h48lPFYpsTvQJZF4EKyI4aLHaev3CxivZmv7yZig9pc=
+golang.org/x/sys v0.15.0/go.mod h1:/VUhepiaJMQUp4+oa/7Zr1D23ma6VTLIYjOOTFZPUcA=

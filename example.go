@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"net"
+	
 
 	udpbpf "github.com/lbsystem/xdpread/ebpf"
 )

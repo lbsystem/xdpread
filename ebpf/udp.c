@@ -44,7 +44,6 @@ int xdp_filter_port(struct xdp_md *ctx) {
     // 检查 UDP 目的端口
     if (udp->dest == bpf_htons(PORT)) {
         int index = ctx->rx_queue_index;
-        bpf_printk("Hello, world, from BPF! My PID is %d %d\n", 12346, index);
         return bpf_redirect_map(&xsks_map, index, 0);
     }
 

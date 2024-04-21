@@ -36,7 +36,7 @@ func newEbpf(ifname string, port uint16) (*udpObjects, link.Link, *net.Interface
 	l, err := link.AttachXDP(link.XDPOptions{
 		Program:   bpf1.XdpFilterPort,
 		Interface: iface1.Index,
-		Flags:     unix.XDP_COPY,
+		Flags:     unix.XDP_FLAGS_DRV_MODE,
 	})
 	if err != nil {
 		log.Fatal(err.Error())
@@ -59,7 +59,7 @@ func createsocket(ifidx int, queueid int) *xdp.Socket {
 		RxSize:    xdp.DEFAULT_RX_SIZE,
 		TxSize:    xdp.DEFAULT_TX_SIZE,
 		QueueID:   queueid,
-		BindFlags: unix.XDP_COPY, //XDP_ZEROCOPY XDP_USE_NEED_WAKEUP XDP_SHARED_UMEM XDP_COPY
+		BindFlags: unix.XDP_FLAGS_DRV_MODE ,//XDP_ZEROCOPY XDP_USE_NEED_WAKEUP XDP_SHARED_UMEM XDP_COPY
 		Poll:      true,
 	})
 	if err != nil {
@@ -80,7 +80,7 @@ func NewAFXDP(ifname string, port, queueID int) (*xdp.Socket, *udpObjects, link.
 	if err != nil {
 		log.Fatal(err.Error())
 	}
-	go xsk.HandleRecv()
+	
 	return xsk, bpf, l
 }
 func DecodeUdp(b []byte) (src, dst *net.UDPAddr, data []byte, e error) {

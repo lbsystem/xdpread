@@ -3,16 +3,14 @@ package main
 import (
 	"fmt"
 	"log"
+	"net"
 	"time"
 
 	"sync/atomic"
-
-	udpbpf "github.com/lbsystem/xdpread/ebpf"
-	"github.com/lixiangzhong/xdp"
 )
 
 func main() {
-	// f, err := os.Create("/goProject/test/xdpread/cpu1.prof")
+	// f, err := os.Create("/goProject/test/xdpread/cpu.prof")
 	// if err != nil {
 	// 	log.Fatal(err)
 	// }
@@ -33,24 +31,26 @@ func main() {
 	// 	os.Exit(0)
 	// }()
 
-	xsk, bpf, l := udpbpf.NewAFXDP("enp6s16", 12121, 0, true)
-	n, _, err := xdp.GetNicQueues("enp6s16")
+	u, err := net.ResolveUDPAddr("udp", ":12121")
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal(err.Error())
 	}
-	fmt.Println(n)
+	// targetU, err := net.ResolveUDPAddr("udp", "192.168.1.35:31861")
 
-	defer bpf.Close()
-	defer l.Close()
-	// select{}
-	b := make([][]byte, 2048)
-	// rmsgs := make([]ipv4.Message, 128)
+	udpListen, err := net.ListenUDP("udp", u)
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+
+	
+	b := make([]byte, 65535)
 	var count int64
 	go func() {
 		for {
 			time.Sleep(time.Second)
+
 			c := atomic.LoadInt64(&count)
-			if c == 0 {
+			if c==0{
 				fmt.Printf("\r                            ")
 				continue
 			}
@@ -58,18 +58,19 @@ func main() {
 			fmt.Printf("\rspeed is %dM", c/1024/1024)
 		}
 	}()
-	ff := xsk.HandleRecv()
-
-	for {
-		n := ff(b[:0])
 	
-		for i := 0; i < n; i++ {
-			_,  _, err := udpbpf.DecodeUdp(b[i])
-			atomic.AddInt64(&count, int64(len(data)))
-			if err != nil {			
-				continue
+		for {
+			n, _, err := udpListen.ReadFrom(b)
+			atomic.AddInt64(&count, int64(n))
+			if err != nil {
+				// log.Fatal(err.Error())
 			}
-		
+
+			// udpconn.Write(b[:n])
+
 		}
-	}
+
+
+
+
 }

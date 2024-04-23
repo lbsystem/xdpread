@@ -3,6 +3,11 @@ package main
 import (
 	"fmt"
 	"log"
+	// "os"
+	// "os/signal"
+	// "runtime/pprof"
+	// "syscall"
+
 	"time"
 
 	"sync/atomic"
@@ -12,7 +17,7 @@ import (
 )
 
 func main() {
-	// f, err := os.Create("/goProject/test/xdpread/cpu1.prof")
+	// f, err := os.Create("/goProject/xdp/default.prof")
 	// if err != nil {
 	// 	log.Fatal(err)
 	// }
@@ -59,17 +64,15 @@ func main() {
 		}
 	}()
 	ff := xsk.HandleRecv()
-
 	for {
 		n := ff(b[:0])
-	
 		for i := 0; i < n; i++ {
-			_,  _, err := udpbpf.DecodeUdp(b[i])
+			_, data, err := udpbpf.DecodeUdp(b[i])
 			atomic.AddInt64(&count, int64(len(data)))
-			if err != nil {			
+			if err != nil {
 				continue
 			}
-		
+
 		}
 	}
 }

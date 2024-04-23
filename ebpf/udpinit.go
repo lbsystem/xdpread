@@ -90,7 +90,7 @@ func DecodeUdp(b []byte) (src *net.UDPAddr, data []byte, e error) {
 	}
 	// IPlength := binary.BigEndian.Uint16(b[16:18])
 	IPlength := uint16(b[17]) | uint16(b[16])<<8
-	// IPlength:=28+18
+	// IPlength := 28 + 18
 	data1 := b[14+28 : 14+IPlength]
 	srcIP := net.UDPAddr{
 		IP: net.IP(b[26:30]),

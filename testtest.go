@@ -72,7 +72,7 @@ func udpReadBatch() {
 func main() {
 
 	conn, err := net.DialUDP("udp", nil, &net.UDPAddr{
-		IP:   net.IPv4(192, 168, 1, 25),
+		IP:   net.IPv4(192, 168, 1, 100),
 		Port: 12121,
 	})
 	if err != nil {
@@ -92,7 +92,7 @@ func main() {
 		//
 	}
 	ctx := context.Background()
-	r := rate.NewLimiter(1024*1024*20, 1024*1024*300)
+	r := rate.NewLimiter(1024*1024*25, 1024*1024*300)
 	for i := 0; i < 3000000; i++ {
 		// conn.Write(b)
 		n, err := packetconn.WriteBatch(msgs, 0)

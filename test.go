@@ -14,6 +14,7 @@ func main() {
 	// if err != nil {
 	// 	log.Fatal(err)
 	// }
+	//
 	// time.AfterFunc(time.Second*2, func() {
 	// 	if err := pprof.StartCPUProfile(f); err != nil {
 	// 		panic(err)
@@ -42,7 +43,6 @@ func main() {
 		log.Fatal(err.Error())
 	}
 
-	
 	b := make([]byte, 65535)
 	var count int64
 	go func() {
@@ -50,7 +50,7 @@ func main() {
 			time.Sleep(time.Second)
 
 			c := atomic.LoadInt64(&count)
-			if c==0{
+			if c == 0 {
 				fmt.Printf("\r                            ")
 				continue
 			}
@@ -58,19 +58,16 @@ func main() {
 			fmt.Printf("\rspeed is %dM", c/1024/1024)
 		}
 	}()
-	
-		for {
-			n, _, err := udpListen.ReadFrom(b)
-			atomic.AddInt64(&count, int64(n))
-			if err != nil {
-				// log.Fatal(err.Error())
-			}
 
-			// udpconn.Write(b[:n])
-
+	for {
+		n, _, err := udpListen.ReadFrom(b)
+		atomic.AddInt64(&count, int64(n))
+		if err != nil {
+			// log.Fatal(err.Error())
 		}
 
+		// udpconn.Write(b[:n])
 
-
+	}
 
 }

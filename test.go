@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"sync/atomic"
+	
 )
 
 func main() {
@@ -48,13 +49,12 @@ func main() {
 	go func() {
 		for {
 			time.Sleep(time.Second)
-
-			c := atomic.LoadInt64(&count)
+			
+			c := atomic.SwapInt64(&count, 0)
 			if c == 0 {
 				fmt.Printf("\r                            ")
 				continue
 			}
-			atomic.SwapInt64(&count, 0)
 			fmt.Printf("\rspeed is %dM", c/1024/1024)
 		}
 	}()
